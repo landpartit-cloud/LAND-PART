@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10243a">
+<title>یدک تریلر | فروشگاه تخصصی قطعات تریلی</title>
+<style>
+:root{--navy:#10243a;--blue:#1769aa;--orange:#ff9f1c;--bg:#f3f6fa;--text:#202d3b;--muted:#718096;--line:#e5eaf0;--green:#13865c}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.topbar{background:#091827;color:white;padding:7px 5%;font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+header{background:var(--navy);color:white;padding:18px 5%;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.logo{font-size:24px;font-weight:900;white-space:nowrap}
+.logo span{color:var(--orange)}
+.search{flex:1;min-width:220px;display:flex;background:white;border-radius:9px;overflow:hidden}
+.search input{border:0;outline:0;padding:12px;width:100%;color:#222}
+.search button{background:var(--orange);border:0;padding:0 18px;font-weight:bold}
+.header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:10px 15px;background:var(--blue);color:white;font-weight:bold}
+.btn:hover{filter:brightness(.94)}
+.btn.orange{background:var(--orange);color:#17202b}
+.btn.dark{background:var(--navy)}
+.btn.light{background:#edf3fa;color:var(--navy)}
+nav{display:flex;gap:20px;overflow:auto;padding:10px 5%;background:white;border-bottom:1px solid var(--line);white-space:nowrap}
+nav a:hover{color:var(--blue)}
+.wrap{max-width:1400px;margin:auto;padding:22px 4%}
+.hero{background:linear-gradient(115deg,#10243a,#175b8a);color:white;border-radius:16px;padding:35px;display:grid;grid-template-columns:1.6fr 1fr;gap:15px;align-items:center;overflow:hidden}
+.hero h1{font-size:clamp(24px,4vw,40px);line-height:1.7;margin:0}
+.hero p{color:#dbe8f4}
+.hero-art{text-align:center;font-size:100px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.pill{background:#ffffff19;border:1px solid #ffffff45;border-radius:30px;padding:6px 12px;font-size:12px}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+.benefit,.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:16px}
+.benefit strong{display:block}
+.benefit span,.muted{color:var(--muted);font-size:12px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:25px 0 14px}
+.section-head h2{font-size:21px;margin:0}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters select,.filters input,.field{border:1px solid #dce3eb;background:white;padding:9px;border-radius:8px;max-width:100%}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start}
+.sidebar{position:sticky;top:10px}
+.sidebar h3{margin-top:0}
+.cat-btn{display:block;width:100%;text-align:right;border:0;background:white;padding:9px;border-radius:7px;margin:4px 0}
+.cat-btn:hover,.cat-btn.active{background:#eaf3fc;color:var(--blue)}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.product{background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:.2s}
+.product:hover{box-shadow:0 7px 25px #172b4410;transform:translateY(-2px)}
+.product-img{height:150px;background:linear-gradient(145deg,#f1f5f9,#e4ebf2);display:grid;place-items:center;font-size:60px}
+.product-body{padding:13px;display:flex;flex-direction:column;flex:1}
+.tag{font-size:11px;background:#edf4fc;color:#27619a;border-radius:5px;padding:3px 7px;align-self:start}
+.product h3{font-size:14px;line-height:1.9;margin:9px 0}
+.desc{font-size:12px;color:var(--muted);flex:1}
+.price{font-size:18px;font-weight:900;color:var(--navy);margin:8px 0}
+.price small{font-size:11px;font-weight:normal}
+.stock{font-size:11px;color:var(--green)}
+.stock.out{color:#c0392b}
+.product-actions{display:flex;gap:6px;margin-top:10px}
+.product-actions button{flex:1;font-size:12px;padding:9px 4px}
+.empty{grid-column:1/-1;background:white;padding:30px;text-align:center;border-radius:12px}
+.cart-float{position:fixed;bottom:18px;left:18px;z-index:10;box-shadow:0 4px 18px #0003}
+footer{background:#0b1a2a;color:#e4eaf1;padding:30px 5%;margin-top:35px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px}
+footer a{display:block;color:#c4d0dd;font-size:13px}
+footer p{font-size:13px;color:#c4d0dd}
+.overlay{position:fixed;inset:0;background:#071321a8;z-index:20;display:none;align-items:center;justify-content:center;padding:12px}
+.overlay.show{display:flex}
+.modal{background:white;width:min(760px,100%);max-height:90vh;overflow:auto;border-radius:14px;padding:20px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.modal-head h2{font-size:20px;margin:0}
+.close{border:0;background:#edf1f5;border-radius:8px;padding:6px 12px}
+.cart-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{border:0;background:#edf3fa;border-radius:5px;padding:3px 9px}
+.total-line{display:flex;justify-content:space-between;padding:5px 0}
+.total-line.final{font-size:19px;font-weight:bold;border-top:1px solid var(--line);margin-top:8px;padding-top:12px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-item{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.form-item label{font-size:12px;font-weight:bold}
+.form-item input,.form-item select,.form-item textarea{width:100%;border:1px solid #dce3eb;padding:10px;border-radius:8px}
+.notice{padding:12px;background:#fff5dc;border-radius:8px;font-size:12px;margin:12px 0}
+.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.admin-content{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{padding:9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+.hidden{display:none!important}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{position:static}.cat-list{display:flex;overflow:auto;gap:5px}.cat-btn{white-space:nowrap;width:auto}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.benefits{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.hero-art{display:none}}
+@media(max-width:480px){header{padding:14px 4%;gap:10px}.logo{font-size:20px}.header-actions{width:100%}.products{gap:8px}.product-img{height:110px;font-size:45px}.product-body{padding:9px}.product h3{font-size:12px}.price{font-size:15px}.wrap{padding:14px 3%}.hero{padding:22px}.benefit{padding:10px}.footer-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.cart-row{grid-template-columns:1fr auto}.cart-row .row-price{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span>فروشگاه تخصصی لوازم یدکی تریلی و کامیون</span>
+  <span>پشتیبانی و ثبت سفارش: 09939799508</span>
+</div>
+<header>
+  <a href="#" class="logo">یدک <span>تریلر</span></a>
+  <form class="search" id="searchForm">
+    <input id="searchInput" placeholder="جست‌وجوی نام قطعه، کد فنی یا برند..." aria-label="جست‌وجوی قطعات">
+    <button>جست‌وجو</button>
+  </form>
+  <div class="header-actions">
+    <button class="btn light" onclick="openCart()">🛒 سبد خرید <b id="cartCount">۰</b></button>
+    <button class="btn orange" onclick="openAdmin()">مدیریت فروشگاه</button>
+  </div>
+</header>
+<nav>
+  <a href="#products">همه قطعات</a>
+  <a href="#products" onclick="chooseCategory('ترمز')">سیستم ترمز</a>
+  <a href="#products" onclick="chooseCategory('تعلیق')">تعلیق و زیربندی</a>
+  <a href="#products" onclick="chooseCategory('برق')">قطعات برقی</a>
+  <a href="#products" onclick="chooseCategory('چراغ')">چراغ و روشنایی</a>
+  <a href="#products" onclick="chooseCategory('محور')">محور و چرخ</a>
+  <a href="#contact">تماس با ما</a>
+</nav>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="pill">مرجع تخصصی قطعات خودروهای سنگین</div>
+      <h1>قطعه درست، خرید مطمئن، جاده‌ای آسوده</h1>
+      <p>قطعات یدکی تریلی و کامیون را پیدا کن، قیمت‌ها را مقایسه کن و سفارش خودت را مدیریت کن.</p>
+      <div class="pills">
+        <span class="pill">✓ جست‌وجوی سریع قطعات</span>
+        <span class="pill">✓ بررسی موجودی</span>
+        <span class="pill">✓ پشتیبانی تلفنی</span>
+      </div>
+      <br>
+      <a href="#products" class="btn orange">مشاهده محصولات ←</a>
+    </div>
+    <div class="hero-art">🚛⚙️</div>
+  </section>
+
+  <section class="benefits">
+    <div class="benefit">🔩 <strong>قطعات تخصصی</strong><span>دسته‌بندی براساس نوع قطعه</span></div>
+    <div class="benefit">📦 <strong>مدیریت موجودی</strong><span>نمایش تعداد موجود در انبار</span></div>
+    <div class="benefit">🛒 <strong>سبد خرید هوشمند</strong><span>محاسبه خودکار تعداد و قیمت</span></div>
+    <div class="benefit">☎️ <strong>ارتباط با فروشنده</strong><span>تماس مستقیم برای راهنمایی</span></div>
+  </section>
+
+  <div class="section-head" id="products">
+    <h2>فروشگاه قطعات یدکی</h2>
+    <div class="filters">
+      <select id="sortSelect" onchange="renderProducts()">
+        <option value="default">مرتب‌سازی پیش‌فرض</option>
+        <option value="cheap">ارزان‌ترین</option>
+        <option value="expensive">گران‌ترین</option>
+        <option value="name">نام محصول</option>
+      </select>
+      <select id="brandSelect" onchange="renderProducts()">
+        <option value="">همه برندها</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar panel">
+      <h3>دسته‌بندی قطعات</h3>
+      <div class="cat-list" id="categoryList"></div>
+      <hr style="border:0;border-top:1px solid var(--line)">
+      <p class="muted">قطعه خاصی پیدا نکردی؟ برای استعلام موجودی و قیمت تماس بگیر.</p>
+      <a class="btn" style="display:block;text-align:center" href="tel:09939799508">تماس با فروشگاه</a>
+    </aside>
+    <section class="products" id="productGrid"></section>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="footer-grid">
+    <div>
+      <div class="logo">یدک <span>تریلر</span></div>
+      <p>فروشگاه تخصصی قطعات یدکی تریلی، کامیون و خودروهای سنگین. مشخصات و موجودی محصولات را پیش از خرید بررسی کنید.</p>
+    </div>
+    <div>
+      <strong>دسترسی سریع</strong>
+      <a href="#products">فروشگاه محصولات</a>
+      <a href="#" onclick="openCart();return false">سبد خرید</a>
+      <a href="#" onclick="openAdmin();return false">پنل مدیریت</a>
+    </div>
+    <div>
+      <strong>ارتباط با ما</strong>
+      <a href="tel:09939799508">تلفن: 09939799508</a>
+      <a id="whatsappLink" href="https://wa.me/989939799508" target="_blank" rel="noopener">واتساپ فروشگاه</a>
+      <a id="rubikaLink" href="https://rubika.ir/" target="_blank" rel="noopener">روبیکا فروشگاه</a>
+      <p>شناسه روبیکا را در تنظیمات مدیریت وارد کنید.</p>
+    </div>
+  </div>
+  <hr style="border-color:#ffffff20">
+  <p>© <span id="year"></span> یدک تریلر — تمامی حقوق محفوظ است.</p>
+</footer>
+
+<button class="btn orange cart-float" onclick="openCart()">🛒 سبد خرید <span id="floatCount">۰</span></button>
+
+<div class="overlay" id="cartOverlay" onclick="overlayClose(event,'cartOverlay')">
+  <section class="modal" role="dialog" aria-modal="true" aria-label="سبد خرید">
+    <div class="modal-head"><h2>🛒 سبد خرید شما</h2><button class="close" onclick="closeModal('cartOverlay')">✕</button></div>
+    <div id="cartContent"></div>
+  </section>
+</div>
+
+<div class="overlay" id="checkoutOverlay" onclick="overlayClose(event,'checkoutOverlay')">
+  <section class="modal" role="dialog" aria-modal="true" aria-label="ثبت سفارش">
+    <div class="modal-head"><h2>ثبت اطلاعات سفارش</h2><button class="close" onclick="closeModal('checkoutOverlay')">✕</button></div>
+    <div class="notice">این نسخه آزمایشی است. ثبت سفارش در این صفحه به معنی پرداخت بانکی یا ارسال واقعی سفارش نیست.</div>
+    <form id="checkoutForm">
+      <div class="form-grid">
+        <div class="form-item"><label>نام و نام خانوادگی</label><input name="name" required maxlength="100"></div>
+        <div class="form-item"><label>شماره موبایل</label><input name="phone" required type="tel" pattern="[0-9۰-۹+() -]{8,20}"></div>
+        <div class="form-item"><label>استان</label><input name="province" required maxlength="80"></div>
+        <div class="form-item"><label>شهر</label><input name="city" required maxlength="80"></div>
+      </div>
+      <div class="form-item"><label>آدرس کامل</label><textarea name="address" required maxlength="500" rows="3"></textarea></div>
+      <div class="form-item"><label>توضیحات سفارش</label><textarea name="notes" maxlength="500" rows="2"></textarea></div>
+      <button class="btn" type="submit" style="width:100%">ثبت سفارش آزمایشی</button>
+    </form>
+  </section>
+</div>
+
+<div class="overlay" id="adminOverlay" onclick="overlayClose(event,'adminOverlay')">
+  <section class="modal" role="dialog" aria-modal="true" aria-label="پنل مدیریت">
+    <div class="modal-head"><h2>⚙️ مدیریت فروشگاه</h2><button class="close" onclick="closeModal('adminOverlay')">✕</button></div>
+    <div id="adminLogin">
+      <div class="notice">رمز اولیه نمایشی: <b>1234</b> — این ورود فقط برای آزمایش در مرورگر است و امنیت واقعی ندارد.</div>
+      <form id="loginForm">
+        <div class="form-item"><label>رمز مدیریت</label><input id="adminPassword" type="password" required></div>
+        <button class="btn">ورود به مدیریت</button>
+      </form>
+    </div>
+    <div id="adminPanel" class="hidden">
+      <div class="admin-tabs">
+        <button class="btn light" onclick="adminTab('products')">مدیریت محصولات</button>
+        <button class="btn light" onclick="adminTab('orders')">سفارش‌ها</button>
+        <button class="btn light" onclick="adminTab('settings')">تنظیمات</button>
+        <button class="btn light" onclick="exportData()">خروجی پشتیبان</button>
+        <button class="btn dark" onclick="adminLogout()">خروج</button>
+      </div>
+      <div id="adminContent" class="admin-content"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+"use strict";
+
+const STORAGE = {
+  products:"yadak_products_v1",
+  cart:"yadak_cart_v1",
+  orders:"yadak_orders_v1",
+  settings:"yadak_settings_v1"
+};
+
+const categories=["همه قطعات","ترمز","تعلیق","برق","چراغ","محور","بدنه","فیلتر و موتور","لوازم جانبی"];
+
+const seedProducts=[
+ {id:1,name:"لنت ترمز تریلی",category:"ترمز",brand:"عمومی",price:2850000,stock:12,sku:"BR-1001",emoji:"⚙️",desc:"لنت ترمز خودرو سنگین؛ پیش از خرید ابعاد و سازگاری محور را بررسی کنید."},
+ {id:2,name:"کاسه چرخ تریلی",category:"محور",brand:"عمومی",price:6500000,stock:5,sku:"WH-1002",emoji:"🔩",desc:"قطعه سیستم چرخ؛ انتخاب مدل دقیق براساس مشخصات فنی خودرو."},
+ {id:3,name:"کمک فنر تریلی",category:"تعلیق",brand:"عمومی",price:4200000,stock:8,sku:"SU-1003",emoji:"🛠️",desc:"کمک فنر خودرو سنگین؛ طول و نوع اتصال باید با مدل خودرو مطابقت داشته باشد."},
+ {id:4,name:"چراغ عقب تریلی",category:"چراغ",brand:"عمومی",price:780000,stock:20,sku:"LI-1004",emoji:"💡",desc:"چراغ عقب؛ مشخصات ولتاژ، سوکت و استاندارد نصب را بررسی کنید."},
+ {id:5,name:"سوکت برق هفت پین",category:"برق",brand:"عمومی",price:420000,stock:25,sku:"EL-1005",emoji:"🔌",desc:"سوکت اتصال برق تریلی؛ پیش از سفارش نوع اتصال را بررسی کنید."},
+ {id:6,name:"شیر کنترل ترمز",category:"ترمز",brand:"عمومی",price:3750000,stock:7,sku:"BR-1006",emoji:"🔧",desc:"قطعه سیستم پنوماتیک ترمز؛ سازگاری مدل و فشار کاری باید تأیید شود."},
+ {id:7,name:"کیسه باد تعلیق",category:"تعلیق",brand:"عمومی",price:3200000,stock:10,sku:"SU-1007",emoji:"⚙️",desc:"کیسه باد سیستم تعلیق؛ ابعاد و مدل محور را قبل از خرید تطبیق دهید."},
+ {id:8,name:"گلگیر تریلی",category:"بدنه",brand:"عمومی",price:950000,stock:15,sku:"BD-1008",emoji:"🚛",desc:"گلگیر خودرو سنگین؛ ابعاد و نقاط نصب با وسیله نقلیه تطبیق داده شود."},
+ {id:9,name:"فیلتر هوا کامیون",category:"فیلتر و موتور",brand:"عمومی",price:680000,stock:14,sku:"EN-1009",emoji:"🧰",desc:"فیلتر هوا؛ شماره فنی و مدل موتور را با قطعه جایگزین مطابقت دهید."},
+ {id:10,name:"شبرنگ تریلی",category:"لوازم جانبی",brand:"عمومی",price:180000,stock:30,sku:"AC-1010",emoji:"🟠",desc:"نوار بازتابنده برای افزایش دیده‌شدن وسیله نقلیه در شرایط کم‌نور."},
+ {id:11,name:"توپی چرخ تریلی",category:"محور",brand:"عمومی",price:5900000,stock:4,sku:"WH-1011",emoji:"🔩",desc:"توپی چرخ؛ مشخصات محور، بلبرینگ و شماره فنی را پیش از خرید بررسی کنید."},
+ {id:12,name:"چراغ جانبی LED",category:"چراغ",brand:"عمومی",price:350000,stock:18,sku:"LI-1012",emoji:"💡",desc:"چراغ جانبی؛ نوع ولتاژ، رنگ و استاندارد نصب را بررسی کنید."}
+];
+
+function readStore(key,fallback){
+  try{
+    const raw=localStorage.getItem(key);
+    if(raw===null)return fallback;
+    const parsed=JSON.parse(raw);
+    return parsed ?? fallback;
+  }catch(e){return fallback}
+}
+function saveStore(key,value){
+  try{localStorage.setItem(key,JSON.stringify(value));return true}
+  catch(e){alert("ذخیره‌سازی انجام نشد؛ فضای مرورگر را بررسی کنید.");return false}
+}
+let products=readStore(STORAGE.products,null);
+if(!Array.isArray(products)){products=seedProducts.map(p=>({...p}));saveStore(STORAGE.products,products)}
+let cart=readStore(STORAGE.cart,[]);
+let orders=readStore(STORAGE.orders,[]);
+let settings=readStore(STORAGE.settings,{
+  phone:"09939799508",
+  rubika:"",
+  whatsapp:"989939799508",
+  shipping:150000,
+  freeShippingThreshold:10000000,
+  storeName:"یدک تریلر",
+  adminPassword:"1234",
+  paymentMode:"آزمایشی"
+});
+let activeCategory="همه قطعات";
+let adminUnlocked=false;
+let editingId=null;
+
+const $=id=>document.getElementById(id);
+const toman=n=>new Intl.NumberFormat("fa-IR").format(Number(n)||0)+" تومان";
+const digits=n=>new Intl.NumberFormat("fa-IR").format(Number(n)||0);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function persistProducts(){saveStore(STORAGE.products,products)}
+function persistCart(){saveStore(STORAGE.cart,cart);updateCartCount()}
+function updateCartCount(){
+  const count=cart.reduce((sum,item)=>sum+Math.max(0,Number(item.qty)||0),0);
+  $("cartCount").textContent=digits(count);
+  $("floatCount").textContent=digits(count);
+}
+function syncSettings(){
+  $("whatsappLink").href="https://wa.me/"+String(settings.whatsapp||"989939799508").replace(/\D/g,"");
+  $("rubikaLink").href=settings.rubika
+    ?"https://rubika.ir/"+encodeURIComponent(settings.rubika.replace(/^@/,""))
+    :"https://rubika.ir/";
+  $("rubikaLink").textContent=settings.rubika?"ارتباط در روبیکا":"روبیکا (شناسه را تنظیم کنید)";
+  document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.href="tel:"+settings.phone);
+  document.querySelector(".topbar span:last-child").textContent="پشتیبانی و ثبت سفارش: "+settings.phone;
+  document.querySelector("#contact .footer-grid > div:first-child .logo").innerHTML=esc(settings.storeName);
+  document.title=settings.storeName+" | فروشگاه تخصصی قطعات تریلی";
+}
+function openModal(id){$(id).classList.add("show")}
+function closeModal(id){$(id).classList.remove("show")}
+function overlayClose(e,id){if(e.target===$(id))closeModal(id)}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay.show").forEach(x=>x.classList.remove("show"))});
+
+function renderCategories(){
+  $("categoryList").innerHTML=categories.map(c=>
+    `<button class="cat-btn ${activeCategory===c?"active":""}" onclick="chooseCategory('${esc(c)}')">${c==="همه قطعات"?"▦": "▪"} ${esc(c)}</button>`
+  ).join("");
+}
+function chooseCategory(c){
+  activeCategory=c;
+  renderCategories();
+  renderProducts();
+}
+function renderBrandOptions(){
+  const sel=$("brandSelect"),previous=sel.value;
+  const brands=[...new Set(products.map(p=>p.brand).filter(Boolean))].sort();
+  sel.innerHTML='<option value="">همه برندها</option>'+brands.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+  if(brands.includes(previous))sel.value=previous;
+}
+function renderProducts(){
+  const q=$("searchInput").value.trim().toLowerCa
